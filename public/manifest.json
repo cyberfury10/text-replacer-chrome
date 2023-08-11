@@ -1,0 +1,30 @@
+{
+    "name": "Chrome extension starter app",
+    "version": "0.1.0",
+    "description": "Chrome extension starter app",
+    "permissions": [
+        "storage",
+        "tabs"
+    ],
+    "host_permissions": [
+        "https://*/*"
+    ],
+    "background": {
+        "service_worker": "./background/background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*/*"
+            ],
+            "js": [
+                "./content/content.js"
+            ]
+        }
+    ],
+    "action": {
+        "default_title": "Shotcut Manager",
+        "default_popup": "index.html"
+    },
+    "manifest_version": 3
+}
