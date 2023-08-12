@@ -1,0 +1,19 @@
+{
+    "version": "0.1.0",
+    "manifest_version": 3,
+    "options_page": "index.html",
+    "name": "Chrome extension starter app",
+    "description": "Chrome extension starter app",
+    "permissions": ["storage"],
+    "host_permissions": ["https://*/*"],
+    "background": {
+      "service_worker": "./background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://*/*"],
+        "js": ["./content.js"]
+      }
+    ]
+  }
+  

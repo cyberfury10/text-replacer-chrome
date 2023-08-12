@@ -1,30 +1,29 @@
-const path = require('path')
+const path = require("path")
 
-const CopyPlugin = require('copy-webpack-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
+const CopyPlugin = require("copy-webpack-plugin")
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
+const HtmlWebPackPlugin = require("html-webpack-plugin")
+const TerserPlugin = require("terser-webpack-plugin")
 
 module.exports = (env, argv) => {
   const { mode } = argv
-  const isEnvDevelopment = mode === 'development'
-  const isEnvProduction = mode === 'production'
+  const isEnvDevelopment = mode === "development"
+  const isEnvProduction = mode === "production"
   const config = {
     output: {
-      publicPath: 'auto',
-      path: path.resolve(__dirname, 'dist'),
-      filename: isEnvProduction ? 'static/js/[name].[contenthash:8].js' : isEnvDevelopment && 'static/js/bundle.js',
-      chunkFilename: isEnvProduction
-        ? 'static/js/[name].[contenthash:8].chunk.js'
-        : isEnvDevelopment && 'static/js/[name].chunk.js',
-      assetModuleFilename: 'static/media/[name].[hash][ext]',
+      publicPath: "auto",
+      path: path.resolve(__dirname, "dist"),
       clean: true,
+    },
+    entry: {
+      content: "./src/content/content.js",
+      background: "./src/background/background.js",
+      app: "./src/index.js",
     },
 
     resolve: {
-      extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
-      alias: {
-      },
+      extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+      alias: {},
     },
 
     optimization: {
@@ -64,40 +63,43 @@ module.exports = (env, argv) => {
       port: 4001,
       historyApiFallback: true,
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': '*',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
       },
     },
-    devtool: isEnvProduction ? false : 'source-map',
+    devtool: isEnvProduction ? false : "source-map",
     module: {
       rules: [
         {
           test: /\.m?js/,
-          type: 'javascript/auto',
+          type: "javascript/auto",
           resolve: {
             fullySpecified: false,
           },
         },
         {
           test: /\.(css|s[ac]ss)$/i,
-          use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+          use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
         },
         {
           test: /\.(ts|tsx|js|jsx)$/,
-          exclude: /node_modules/,
-          use: { loader: 'babel-loader' },
+          exclude: [
+            /node_modules/,
+          ],
+          use: { loader: "babel-loader" },
         },
         {
           test: /.json$/,
-          use: { loader: 'json-loader' },
+          use: { loader: "json-loader" },
+          exclude: [path.resolve(__dirname, "src/manifest.json")],
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
-          type: 'asset/resource',
+          type: "asset/resource",
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/i,
-          type: 'asset/resource',
+          type: "asset/resource",
         },
       ],
     },
@@ -105,14 +107,15 @@ module.exports = (env, argv) => {
     plugins: [
       new CopyPlugin({
         patterns: [
-            { from: "./public/manifest.json", to: "./manifest.json" },
-            { from: "./public/background", to: "./background" },
-            { from: "./public/content", to: "./content" },
+          {
+            from: "./src/manifest.json",
+            to: "./manifest.json",
+          },
         ],
-    }),
+      }),
       new HtmlWebPackPlugin({
-        template: './public/index.html',
-        publicPath: '/',
+        template: "./public/index.html",
+        publicPath: "/",
       }),
     ],
   }
