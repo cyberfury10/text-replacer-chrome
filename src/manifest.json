@@ -2,8 +2,8 @@
     "version": "0.1.0",
     "manifest_version": 3,
     "options_page": "index.html",
-    "name": "Chrome extension starter app",
-    "description": "Chrome extension starter app",
+    "name": "Text Replacer",
+    "description": "Text Replacer",
     "permissions": ["storage"],
     "host_permissions": ["https://*/*"],
     "background": {

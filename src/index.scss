@@ -1,0 +1,39 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.container {
+  font-size: 3rem;
+  margin: auto;
+  width: 1000px;
+  height: 600px;
+  background-color: antiquewhite;
+}
+
+.url-panel,
+.find-replace-panel {
+  display: flex;
+  gap: 5px;
+  .panel-row {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+
+    .text-field {
+      margin: 10px 10px 10px 0px;
+    }
+  }
+}
+
+
+.main-screen {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: scroll;
+
+}
