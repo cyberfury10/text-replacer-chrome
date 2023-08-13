@@ -28,17 +28,16 @@
   .floating-action-bar {
     height: 80px;
     text-align: center;
-
-    .auto-saved-by-default {
-      font-size: 12px;
-      text-align: right;
-      color: rgb(148, 148, 148);
-      font-style: italic;
-
-    }
   }
 }
 
+.auto-saved-by-default {
+  font-size: 12px;
+  text-align: right;
+  color: rgb(148, 148, 148);
+  font-style: italic;
+  margin-top: 20px;
+}
 
 .thirty-percent-width {
   width: 30%;
@@ -77,6 +76,7 @@
 .header-title {
   margin: auto;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .bulk-edit {

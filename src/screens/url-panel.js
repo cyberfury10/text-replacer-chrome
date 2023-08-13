@@ -10,7 +10,9 @@ function UrlPanel(props) {
             <Tooltip title="Enable all">
                 <Checkbox size="small" />
             </Tooltip>
-            <div className='header-title'>  Websites (optional)</div>
+            <Tooltip title={<span>When left empty, find & replace is applied to all websites</span>}>
+                <div className='header-title'>  Websites</div>
+            </Tooltip>
             <div className='bulk-edit'>
                 <IconButton color="primary" aria-label="add to shopping cart">
                     <EditIcon fontSize="small" />
