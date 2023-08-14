@@ -71,6 +71,8 @@ function FindAndReplacePanelRow({
                 ...data,
                 id: rowData.id,
                 isEnabled: rowData.isEnabled,
+                findErrors: {},
+                replaceErrors: {},
             }, isEnterPress)
         } else {
             setData({

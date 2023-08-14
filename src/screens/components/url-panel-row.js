@@ -44,6 +44,7 @@ function UrlPanelRow({
                 id: rowData.id,
                 isEnabled: rowData.isEnabled,
                 hostName: data.hostName,
+                errors: {}
             }, isEnterPress)
         } else {
             setData({

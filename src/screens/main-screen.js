@@ -1,27 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Divider, Tooltip } from '@mui/material';
 import Panel from './components/panel';
 import FindAndReplaceRow from './components/find-and-replace-panel-row'
 import UrlPanelRow from './components/url-panel-row'
 import { FIND_AND_REPLACE_PANEL, URL_PANEL } from './constants';
-// import { saveExtensionData, getExtensionData } from "./content/content";
+import { saveExtensionData, getExtensionData } from "../content/content";
 
 function MainScreen(props) {
     const [websites, setWebsites] = useState([])
     const [findAndReplace, setFindAndReplace] = useState([])
 
+    useEffect(() => {
+        getExtensionData("websites", (data) => setWebsites(data))
+        getExtensionData("findAndReplace", (data) => setFindAndReplace(data))
+
+    }, [])
+
     const updateWebsites = (data, writeToStorage) => {
         setWebsites(data)
-        // if (writeToStorage) {
-        console.log(data)
-        // }
+        if (writeToStorage) {
+            saveExtensionData("websites", data)
+        }
     }
 
     const updateFindAndReplaceList = (data, writeToStorage) => {
         setFindAndReplace(data)
-        // if (writeToStorage) {
-        console.log(data)
-        // }
+        if (writeToStorage) {
+            saveExtensionData("findAndReplace", data)
+        }
     }
 
     const urlPanelProps = {
