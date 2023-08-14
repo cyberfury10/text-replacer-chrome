@@ -11,13 +11,13 @@ function runReplaceTextInWebsites(addedNode) {
   getExtensionData("websites", (websites) => {
     for (const { hostName } of websites) {
       if (window.location.host.includes(hostName)) {
-        findAndReplaceStrings(addedNode)
+        findAndReplaceStrings(addedNode, hostName)
       }
     }
   })
 }
 
-function findAndReplaceStrings(addedNode) {
+function findAndReplaceStrings(addedNode, hostName) {
   getExtensionData("findAndReplace", (findAndReplace) => {
     for (const { find, replace } of findAndReplace) {
       if (window.location.host.includes(hostName)) {
@@ -49,6 +49,6 @@ export function saveExtensionData(key, obj) {
 
 export function getExtensionData(key, callBack) {
   chrome.storage.local.get([key], function (data) {
-    callBack(data)
+    callBack(data[key])
   });
 }

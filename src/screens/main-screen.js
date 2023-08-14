@@ -11,8 +11,8 @@ function MainScreen(props) {
     const [findAndReplace, setFindAndReplace] = useState([])
 
     useEffect(() => {
-        getExtensionData("websites", (data) => setWebsites(data))
-        getExtensionData("findAndReplace", (data) => setFindAndReplace(data))
+        getExtensionData("websites", (data = []) => setWebsites(data))
+        getExtensionData("findAndReplace", (data = []) => setFindAndReplace(data))
 
     }, [])
 
