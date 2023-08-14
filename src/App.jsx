@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.scss";
 import { blueGrey } from '@mui/material/colors';
 import MainScreen from "./screens/main-screen";
@@ -13,6 +13,7 @@ const blackTheme = createTheme({
   },
 })
 
+
 const App = () => {
   return <>
     <ThemeProvider theme={blackTheme}>
@@ -22,4 +23,6 @@ const App = () => {
     </ThemeProvider>
   </>
 }
-ReactDOM.render(<App />, document.getElementById("app"));
+
+const root = ReactDOM.createRoot(document.getElementById("app"));
+root.render(<App />);

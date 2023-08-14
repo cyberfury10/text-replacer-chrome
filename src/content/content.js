@@ -1,7 +1,9 @@
 let observer = new MutationObserver((mutations) => {
   for (let mutation of mutations) {
     for (let addedNode of mutation.addedNodes) {
-      runReplaceTextInWebsites(addedNode)
+      if (!window.location.host.includes("127.0.0.1")) {
+        runReplaceTextInWebsites(addedNode)
+      }
     }
   }
 })
