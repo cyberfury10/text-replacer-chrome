@@ -15,10 +15,14 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
         setEnableAll(isAllEnabled)
     }
 
-    const onSave = (index) => (rowData) => {
+    const onSave = (index) => (rowData, isEnterPress = false) => {
         const newData = cloneDeep(data)
         newData[index] = rowData
-        setData(newData)
+        if (isEnterPress === true && index === newData.length - 1) {
+            onAdd(newData)
+        } else {
+            setData(newData)
+        }
     }
 
     const onDelete = (index) => () => {
@@ -27,12 +31,11 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
         setData(newData)
     }
 
-    const onAdd = () => {
+    const onAdd = (newData) => {
         const erroObj = {
             error: true,
             helperText: CANNOT_BE_EMPTY_MSG,
         }
-        const newData = cloneDeep(data)
         const canAddNewField = newData.every((item) => {
             if (extraProps.type === URL_PANEL && isEmpty(item.hostName)) {
                 item.errors = erroObj
@@ -102,7 +105,7 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
                 {rows}
             </div>
             <div className='floating-action-bar'>
-                <Fab color="primary" aria-label="add" size="small" onClick={onAdd}>
+                <Fab color="primary" aria-label="add" size="small" onClick={() => { onAdd(cloneDeep(data)) }}>
                     <AddIcon fontSize="small" />
                 </Fab>
             </div>

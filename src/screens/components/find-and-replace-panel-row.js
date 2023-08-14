@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import TextField from './custom-text-field';
 import { isEmpty, noop } from '../util';
-import { CANNOT_BE_EMPTY_MSG, ONCE_DONE_SAVE_MSG } from '../constants';
+import { CANNOT_BE_EMPTY_MSG } from '../constants';
 
 const FIND = 'FIND'
 const REPLACE = 'REPLACE'
@@ -21,7 +21,7 @@ function FindAndReplacePanelRow({
     const isSameReplace = rowData.replace === data.replace
 
     useEffect(() => {
-        setData(rowData)
+        setData({ ...rowData, find: data.find, replace: data.replace })
     }, [rowData])
 
 
@@ -46,7 +46,7 @@ function FindAndReplacePanelRow({
     }
 
     // validations 
-    const save = (performSave = true) => {
+    const save = (isEnterPress = false) => {
         let findErrors = {}
         let replaceErrors = {}
         let hasNoValidationError = true
@@ -66,12 +66,12 @@ function FindAndReplacePanelRow({
             hasNoValidationError = false
         }
 
-        if (hasNoValidationError && performSave) {
+        if (hasNoValidationError) {
             onSave({
                 ...data,
                 id: rowData.id,
                 isEnabled: rowData.isEnabled,
-            })
+            }, isEnterPress)
         } else {
             setData({
                 ...data,
@@ -86,7 +86,7 @@ function FindAndReplacePanelRow({
     const onEnterPress = (e, fieldType) => {
         e.stopPropagation()
         if (e.key === 'Enter') {
-            save()
+            save(true)
         } else if (e.key === 'Escape') {
             clear(fieldType)
         }
@@ -105,6 +105,7 @@ function FindAndReplacePanelRow({
             showClear={!isEmpty(data.find) && !isSameFind}
             onClear={() => clear(FIND)}
             onKeyDown={(e) => onEnterPress(e, FIND)}
+            autoFocus
         />
         <TextField
             {...data.replaceErrors}

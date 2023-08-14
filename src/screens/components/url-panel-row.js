@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import TextField from './custom-text-field';
 import { isEmpty, noop } from '../util';
-import { CANNOT_BE_EMPTY_MSG, ONCE_DONE_SAVE_MSG } from '../constants';
+import { CANNOT_BE_EMPTY_MSG } from '../constants';
 
 function UrlPanelRow({
     rowData,
@@ -17,7 +17,7 @@ function UrlPanelRow({
     const isSame = rowData.hostName === data.hostName
 
     useEffect(() => {
-        setData(rowData)
+        setData({ ...rowData, hostName: data.hostName })
     }, [rowData])
 
     const onChange = (e) => {
@@ -29,22 +29,22 @@ function UrlPanelRow({
     }
 
     // validations 
-    const save = (performSave = true) => {
+    const save = (isEnterPress = false) => {
         let errors = {}
         let hasNoValidationError = true
         if (isEmpty(data.hostName)) {
             errors = {
                 error: true,
-                helperText: ONCE_DONE_SAVE_MSG,
+                helperText: CANNOT_BE_EMPTY_MSG,
             }
             hasNoValidationError = false
         }
-        if (hasNoValidationError && performSave) {
+        if (hasNoValidationError) {
             onSave({
                 id: rowData.id,
                 isEnabled: rowData.isEnabled,
                 hostName: data.hostName,
-            })
+            }, isEnterPress)
         } else {
             setData({
                 ...data,
@@ -58,7 +58,7 @@ function UrlPanelRow({
     const onEnterPress = (e) => {
         e.stopPropagation()
         if (e.key === 'Enter') {
-            save()
+            save(true)
         } else if (e.key === 'Escape') {
             clear()
         }
@@ -78,6 +78,7 @@ function UrlPanelRow({
             showClear={!isEmpty(data.hostName) && !isSame}
             onClear={onClear}
             onKeyDown={(e) => onEnterPress(e)}
+            autoFocus
         />
         <div className='save-cancel-delete'>
             {isSame ? <>
