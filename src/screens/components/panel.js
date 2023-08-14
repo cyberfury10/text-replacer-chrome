@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import { isEmpty, isEmptyArray } from '../util';
 import { CANNOT_BE_EMPTY_MSG, FIND_AND_REPLACE_PANEL, URL_PANEL } from '../constants';
+import { cloneDeep } from 'lodash';
 
 function Panel({ data, setData: setDataProp, Row, extraProps }) {
     const [enableAll, setEnableAll] = useState(false)
@@ -15,13 +16,13 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
     }
 
     const onSave = (index) => (rowData) => {
-        const newData = [...data]
+        const newData = cloneDeep(data)
         newData[index] = rowData
         setData(newData)
     }
 
     const onDelete = (index) => () => {
-        const newData = [...data]
+        const newData = cloneDeep(data)
         newData.splice(index, 1)
         setData(newData)
     }
@@ -31,7 +32,7 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
             error: true,
             helperText: CANNOT_BE_EMPTY_MSG,
         }
-        const newData = [...data]
+        const newData = cloneDeep(data)
         const canAddNewField = newData.every((item) => {
             if (extraProps.type === URL_PANEL && isEmpty(item.hostName)) {
                 item.errors = erroObj
@@ -40,9 +41,11 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
                 let noError = true
                 if (isEmpty(item.find)) {
                     item.findErrors = erroObj
+                    noError = false
                 }
                 if (isEmpty(item.replace)) {
                     item.replaceErrors = erroObj
+                    noError = false
                 }
                 return noError
             }
@@ -55,7 +58,7 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
     }
 
     const onRowCheckChange = (index) => () => {
-        const newData = [...data]
+        const newData = cloneDeep(data)
         newData[index].isEnabled = !newData[index].isEnabled
         setData(newData)
     }

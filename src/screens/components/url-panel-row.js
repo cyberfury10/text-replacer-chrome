@@ -16,7 +16,7 @@ function UrlPanelRow({
     const [data, setData] = useState(rowData)
     const isSame = rowData.hostName === data.hostName
 
-    const useEffect = (() => {
+    useEffect(() => {
         setData(rowData)
     }, [rowData])
 

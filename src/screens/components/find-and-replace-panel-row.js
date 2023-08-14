@@ -20,7 +20,7 @@ function FindAndReplacePanelRow({
     const isSameFind = rowData.find === data.find
     const isSameReplace = rowData.replace === data.replace
 
-    const useEffect = (() => {
+    useEffect(() => {
         setData(rowData)
     }, [rowData])
 
