@@ -9,18 +9,18 @@ observer.observe(document, { childList: true, subtree: true })
 
 function runReplaceTextInWebsites(addedNode) {
   getExtensionData("websites", (websites) => {
-    for (const { hostName } of websites) {
-      if (window.location.host.includes(hostName)) {
+    for (const { hostName, isEnabled } of websites) {
+      if (window.location.host.includes(hostName) && isEnabled === true) {
         findAndReplaceStrings(addedNode, hostName)
       }
     }
   })
 }
 
-function findAndReplaceStrings(addedNode, hostName) {
+function findAndReplaceStrings(addedNode) {
   getExtensionData("findAndReplace", (findAndReplace) => {
-    for (const { find, replace } of findAndReplace) {
-      if (window.location.host.includes(hostName)) {
+    for (const { find, replace, isEnabled } of findAndReplace) {
+      if (isEnabled === true) {
         recursivelyReplaceText(addedNode, find, replace)
       }
     }
