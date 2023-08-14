@@ -68,6 +68,10 @@
   height: 100%;
   overflow: scroll;
 
+  .MuiFormHelperText-root {
+    font-size: 11px;
+  }
+
   .no-data {
     display: flex;
     flex-direction: column;

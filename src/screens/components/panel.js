@@ -2,31 +2,56 @@ import { Checkbox, Fab, IconButton, Tooltip } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
-import { isEmptyArray } from '../util';
+import { isEmpty, isEmptyArray } from '../util';
+import { CANNOT_BE_EMPTY_MSG, FIND_AND_REPLACE_PANEL, URL_PANEL } from '../constants';
 
-function Panel({ data = [], setData: setDataProp, Row, extraProps }) {
+function Panel({ data, setData: setDataProp, Row, extraProps }) {
     const [enableAll, setEnableAll] = useState(false)
 
-    const setData = (newData) => {
-        setDataProp(newData)
+    const setData = (newData, writeToStorage = true) => {
+        setDataProp(newData, writeToStorage)
         const isAllEnabled = !isEmptyArray(newData) && newData.every(({ isEnabled }) => isEnabled === true)
         setEnableAll(isAllEnabled)
     }
 
     const onSave = (index) => (rowData) => {
-        const clonedObj = [...data]
-        clonedObj[index] = rowData
-        setData(clonedObj)
+        const newData = [...data]
+        newData[index] = rowData
+        setData(newData)
     }
 
     const onDelete = (index) => () => {
-        data.splice(index, 1)
-        setData([...data])
+        const newData = [...data]
+        newData.splice(index, 1)
+        setData(newData)
     }
 
     const onAdd = () => {
-        const newData = [...data, extraProps.newObject]
-        setData(newData)
+        const erroObj = {
+            error: true,
+            helperText: CANNOT_BE_EMPTY_MSG,
+        }
+        const newData = [...data]
+        const canAddNewField = newData.every((item) => {
+            if (extraProps.type === URL_PANEL && isEmpty(item.hostName)) {
+                item.errors = erroObj
+                return false
+            } else if (extraProps.type === FIND_AND_REPLACE_PANEL) {
+                let noError = true
+                if (isEmpty(item.find)) {
+                    item.findErrors = erroObj
+                }
+                if (isEmpty(item.replace)) {
+                    item.replaceErrors = erroObj
+                }
+                return noError
+            }
+            return true
+        })
+        if (canAddNewField) {
+            newData.push({ id: crypto.randomUUID(), ...extraProps.newObject })
+        }
+        setData(newData, false)
     }
 
     const onRowCheckChange = (index) => () => {
@@ -48,7 +73,12 @@ function Panel({ data = [], setData: setDataProp, Row, extraProps }) {
             return extraProps.noDataComponent
         }
         return data.map((item, index) => {
-            return <Row rowData={item} onSave={onSave(index)} onDelete={onDelete(index)} onCheckChange={onRowCheckChange(index)} key={`urls-${index}`} />
+            return <Row
+                rowData={item}
+                onSave={onSave(index)}
+                onDelete={onDelete(index)}
+                onCheckChange={onRowCheckChange(index)}
+                key={item.id} />
         })
     }, [data])
 

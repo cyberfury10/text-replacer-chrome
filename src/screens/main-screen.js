@@ -3,12 +3,26 @@ import { Divider, Tooltip } from '@mui/material';
 import Panel from './components/panel';
 import FindAndReplaceRow from './components/find-and-replace-panel-row'
 import UrlPanelRow from './components/url-panel-row'
-
+import { FIND_AND_REPLACE_PANEL, URL_PANEL } from './constants';
+// import { saveExtensionData, getExtensionData } from "./content/content";
 
 function MainScreen(props) {
     const [websites, setWebsites] = useState([])
     const [findAndReplace, setFindAndReplace] = useState([])
 
+    const updateWebsites = (data, writeToStorage) => {
+        setWebsites(data)
+        // if (writeToStorage) {
+        console.log(data)
+        // }
+    }
+
+    const updateFindAndReplaceList = (data, writeToStorage) => {
+        setFindAndReplace(data)
+        // if (writeToStorage) {
+        console.log(data)
+        // }
+    }
 
     const urlPanelProps = {
         widthClass: 'thirty-percent-width',
@@ -20,7 +34,11 @@ function MainScreen(props) {
             <p>No entries, Thats okay !!!</p>
             <p>Find & Replace will be applied on all websites. Click (+) below to add websites so that replace is performed only on them</p>
         </div>,
-        newObject: { isEnabled: true, hostName: '' }
+        newObject: {
+            isEnabled: true,
+            hostName: '',
+        },
+        type: URL_PANEL,
 
     }
 
@@ -35,17 +53,21 @@ function MainScreen(props) {
             <p>No entries present, Go ahead !!!</p>
             <p>Click (+) below to add some text</p>
         </div>,
-        newObject: { isEnabled: true, find: '', replace: '' }
-
+        newObject: {
+            isEnabled: true,
+            find: '',
+            replace: '',
+        },
+        type: FIND_AND_REPLACE_PANEL,
     }
 
 
     return (
         <>
             <div className='main-screen'>
-                <Panel data={websites} setData={setWebsites} Row={UrlPanelRow} extraProps={urlPanelProps} />
+                <Panel data={websites} setData={updateWebsites} Row={UrlPanelRow} extraProps={urlPanelProps} />
                 <Divider className='divider' orientation="vertical" flexItem />
-                <Panel data={findAndReplace} setData={setFindAndReplace} Row={FindAndReplaceRow} extraProps={findAndReplacePanelProps} />
+                <Panel data={findAndReplace} setData={updateFindAndReplaceList} Row={FindAndReplaceRow} extraProps={findAndReplacePanelProps} />
             </div>
 
         </>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { saveExtensionData, getExtensionData } from "./content/content";
 import ReactDOM from "react-dom";
 import "./index.scss";
 import { blueGrey } from '@mui/material/colors';
