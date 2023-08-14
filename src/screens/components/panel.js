@@ -2,76 +2,70 @@ import { Checkbox, Fab, IconButton, Tooltip } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
-import Row from './row';
 import { isEmptyArray } from '../util';
 
-function UrlPanel({ websites = [], setWebsites: setWebsitesProp }) {
+function Panel({ data = [], setData: setDataProp, Row, extraProps }) {
     const [enableAll, setEnableAll] = useState(false)
 
-    const setWebsites = (newWebsites) => {
-        setWebsitesProp(newWebsites)
-        const isAllEnabled = !isEmptyArray(newWebsites) && newWebsites.every(({ isEnabled }) => isEnabled === true)
+    const setData = (newData) => {
+        setDataProp(newData)
+        const isAllEnabled = !isEmptyArray(newData) && newData.every(({ isEnabled }) => isEnabled === true)
         setEnableAll(isAllEnabled)
     }
 
     const onSave = (index) => (rowData) => {
-        const clonedObj = [...websites]
+        const clonedObj = [...data]
         clonedObj[index] = rowData
-        setWebsites(clonedObj)
+        setData(clonedObj)
     }
 
     const onDelete = (index) => () => {
-        websites.splice(index, 1)
-        setWebsites([...websites])
+        data.splice(index, 1)
+        setData([...data])
     }
 
     const onAdd = () => {
-        const newWebsites = [...websites, { isEnabled: true, hostName: '' }]
-        setWebsites(newWebsites)
+        const newData = [...data, { isEnabled: true, hostName: '' }]
+        setData(newData)
     }
 
     const onRowCheckChange = (index) => () => {
-        const newWebsites = [...websites]
-        newWebsites[index].isEnabled = !newWebsites[index].isEnabled
-        setWebsites(newWebsites)
+        const newData = [...data]
+        newData[index].isEnabled = !newData[index].isEnabled
+        setData(newData)
     }
 
     const onEnableAll = () => {
         setEnableAll(!enableAll)
-        setWebsites(websites.map(website => {
+        setData(data.map(website => {
             website.isEnabled = !enableAll
             return website
         }))
     }
 
     let rows = useMemo(() => {
-        if (isEmptyArray(websites)) {
-            return <div className='no-data'>
-                <p>No entries, Thats okay !!!</p>
-                <p>Find & Replace will be applied on all websites. Click (+) below to add websites so that replace is performed only on them</p>
-            </div>
+        if (isEmptyArray(data)) {
+            return extraProps.noDataComponent
         }
-        return websites.map((website, index) => {
+        return data.map((website, index) => {
             return <Row rowData={website} onSave={onSave(index)} onDelete={onDelete(index)} onCheckChange={onRowCheckChange(index)} key={`urls-${index}`} />
         })
-    }, [websites])
+    }, [data])
 
     return (
-        <div className='panel-container thirty-percent-width'>
-            <div className='url-panel-header'>
+        <div className={`panel-container ${extraProps.widthClass}`}>
+            <div className={extraProps.headerClass}>
                 <Tooltip title="Enable all" placement="right-start">
                     <Checkbox size="small" checked={enableAll} onClick={onEnableAll} />
                 </Tooltip>
-                <Tooltip title={<span>Add entries below to perform find & replace only on those websites</span>}>
-                    <div className='header-title'>  Websites</div>
-                </Tooltip>
+                {extraProps.titleComponent}
                 <div className='bulk-edit'>
                     <IconButton color="primary" aria-label="add to shopping cart">
                         <EditIcon fontSize="small" />
                     </IconButton>
                 </div>
             </div>
-            <div className='url-panel-rows'>
+            <div className='panel-rows'>
                 {rows}
             </div>
             <div className='floating-action-bar'>
@@ -83,4 +77,4 @@ function UrlPanel({ websites = [], setWebsites: setWebsitesProp }) {
     );
 }
 
-export default UrlPanel;
+export default Panel;

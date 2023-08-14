@@ -1,12 +1,12 @@
 
 import { Checkbox, IconButton } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
-import TextField from '../components/custom-text-field';
+import TextField from './custom-text-field';
 import { isEmpty, noop } from '../util';
 
-function Row({ rowData = { hostName: '' }, onDelete = noop, onSave = noop, onCheckChange = noop }) {
+function UrlPanelRow({ rowData = { hostName: '' }, onDelete = noop, onSave = noop, onCheckChange = noop }) {
     const [data, setData] = useState({ hostName: '' })
     const isSame = rowData.hostName === data.hostName
 
@@ -45,4 +45,4 @@ function Row({ rowData = { hostName: '' }, onDelete = noop, onSave = noop, onChe
 
 }
 
-export default Row
+export default UrlPanelRow
