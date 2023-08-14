@@ -1,11 +1,11 @@
 import { Checkbox, Fab, IconButton, Tooltip } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import Row from './row';
 import { isEmptyArray } from '../util';
 
-function UrlPanel({ websites, setWebsites: setWebsitesProp }) {
+function UrlPanel({ websites = [], setWebsites: setWebsitesProp }) {
     const [enableAll, setEnableAll] = useState(false)
 
     const setWebsites = (newWebsites) => {
@@ -44,9 +44,17 @@ function UrlPanel({ websites, setWebsites: setWebsitesProp }) {
         }))
     }
 
-    const rows = websites.map((website, index) => {
-        return <Row rowData={website} onSave={onSave(index)} onDelete={onDelete(index)} onCheckChange={onRowCheckChange(index)} key={`urls-${index}`} />
-    })
+    let rows = useMemo(() => {
+        if (isEmptyArray(websites)) {
+            return <div className='no-data'>
+                <p>No entries, Thats okay !!!</p>
+                <p>Find & Replace will be applied on all websites. Click (+) below to add websites so that replace is performed only on them</p>
+            </div>
+        }
+        return websites.map((website, index) => {
+            return <Row rowData={website} onSave={onSave(index)} onDelete={onDelete(index)} onCheckChange={onRowCheckChange(index)} key={`urls-${index}`} />
+        })
+    }, [websites])
 
     return (
         <div className='panel-container thirty-percent-width'>
@@ -54,7 +62,7 @@ function UrlPanel({ websites, setWebsites: setWebsitesProp }) {
                 <Tooltip title="Enable all" placement="right-start">
                     <Checkbox size="small" checked={enableAll} onClick={onEnableAll} />
                 </Tooltip>
-                <Tooltip title={<span>When left empty, find & replace is applied to all websites</span>}>
+                <Tooltip title={<span>Add entries below to perform find & replace only on those websites</span>}>
                     <div className='header-title'>  Websites</div>
                 </Tooltip>
                 <div className='bulk-edit'>
