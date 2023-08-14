@@ -25,7 +25,7 @@ function Panel({ data = [], setData: setDataProp, Row, extraProps }) {
     }
 
     const onAdd = () => {
-        const newData = [...data, { isEnabled: true, hostName: '' }]
+        const newData = [...data, extraProps.newObject]
         setData(newData)
     }
 
@@ -37,9 +37,9 @@ function Panel({ data = [], setData: setDataProp, Row, extraProps }) {
 
     const onEnableAll = () => {
         setEnableAll(!enableAll)
-        setData(data.map(website => {
-            website.isEnabled = !enableAll
-            return website
+        setData(data.map(item => {
+            item.isEnabled = !enableAll
+            return item
         }))
     }
 
@@ -47,8 +47,8 @@ function Panel({ data = [], setData: setDataProp, Row, extraProps }) {
         if (isEmptyArray(data)) {
             return extraProps.noDataComponent
         }
-        return data.map((website, index) => {
-            return <Row rowData={website} onSave={onSave(index)} onDelete={onDelete(index)} onCheckChange={onRowCheckChange(index)} key={`urls-${index}`} />
+        return data.map((item, index) => {
+            return <Row rowData={item} onSave={onSave(index)} onDelete={onDelete(index)} onCheckChange={onRowCheckChange(index)} key={`urls-${index}`} />
         })
     }, [data])
 

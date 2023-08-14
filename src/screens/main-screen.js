@@ -19,7 +19,8 @@ function MainScreen(props) {
         noDataComponent: <div className='no-data'>
             <p>No entries, Thats okay !!!</p>
             <p>Find & Replace will be applied on all websites. Click (+) below to add websites so that replace is performed only on them</p>
-        </div>
+        </div>,
+        newObject: { isEnabled: true, hostName: '' }
 
     }
 
@@ -33,7 +34,8 @@ function MainScreen(props) {
         noDataComponent: <div className='no-data'>
             <p>No entries present, Go ahead !!!</p>
             <p>Click (+) below to add some text</p>
-        </div>
+        </div>,
+        newObject: { isEnabled: true, find: '', replace: '' }
 
     }
 

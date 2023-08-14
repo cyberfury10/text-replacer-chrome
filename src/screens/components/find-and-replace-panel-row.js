@@ -1,14 +1,25 @@
 
 import { Checkbox, IconButton } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import TextField from './custom-text-field';
 import { isEmpty, noop } from '../util';
 
-function FindAndReplacePanelRow({ rowData = { find: '', replace: '' }, onDelete = noop, onSave = noop, onCheckChange = noop }) {
+function FindAndReplacePanelRow({
+    rowData,
+    onDelete = noop,
+    onSave = noop,
+    onCheckChange = noop
+}) {
     const [data, setData] = useState({ find: '', replace: '' })
-    const isSame = rowData.find === data.find && rowData.replace === data.replace
+    const isSameFind = rowData.find === data.find
+    const isSameReplace = rowData.replace === data.replace
+
+    const useEffect = (() => {
+        setHostName({ find: rowData.find, replace: rowData.replace })
+    }, [])
+
 
     const onFindChange = (e) => {
         setData({ ...data, find: e.target.value })
@@ -36,7 +47,7 @@ function FindAndReplacePanelRow({ rowData = { find: '', replace: '' }, onDelete 
             fullWidth
             value={data.find}
             onChange={onFindChange}
-            showClear={!isEmpty(data.find)}
+            showClear={!isEmpty(data.find) && !isSameFind}
             onClear={onFindClear}
         />
         <TextField
@@ -46,17 +57,21 @@ function FindAndReplacePanelRow({ rowData = { find: '', replace: '' }, onDelete 
             fullWidth
             value={data.replace}
             onChange={onReplaceChange}
-            showClear={!isEmpty(data.replace)}
+            showClear={!isEmpty(data.replace) && !isSameReplace}
             onClear={onReplaceClear}
         />
         <div className='save-cancel-delete'>
-            {isSame ? <>
-                <IconButton color="primary" aria-label="add to shopping cart" size="small"  >
-                    <DeleteIcon fontSize="small" onClick={onDelete} />
+            {isSameFind && isSameReplace ? <>
+                <IconButton color="primary" aria-label="add to shopping cart" size="small"
+                    onClick={onDelete}>
+                    <DeleteIcon fontSize="small" />
                 </IconButton>
             </> : <>
-                <IconButton color="primary" aria-label="add to shopping cart" size="small">
-                    <SaveIcon fontSize="small" onClick={onSave(data)} />
+                <IconButton color="primary" aria-label="add to shopping cart" size="small"
+                    onClick={() => {
+                        onSave(data)
+                    }}>
+                    <SaveIcon fontSize="small" />
                 </IconButton>
             </>}
         </div>

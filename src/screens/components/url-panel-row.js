@@ -1,21 +1,30 @@
 
 import { Checkbox, IconButton } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import TextField from './custom-text-field';
 import { isEmpty, noop } from '../util';
 
-function UrlPanelRow({ rowData = { hostName: '' }, onDelete = noop, onSave = noop, onCheckChange = noop }) {
-    const [data, setData] = useState({ hostName: '' })
-    const isSame = rowData.hostName === data.hostName
+function UrlPanelRow({
+    rowData,
+    onDelete = noop,
+    onSave = noop,
+    onCheckChange = noop
+}) {
+    const [hostName, setHostName] = useState('')
+    const isSame = rowData.hostName === hostName
+
+    const useEffect = (() => {
+        setHostName(rowData.hostName)
+    }, [])
 
     const onChange = (e) => {
-        setData({ ...data, hostName: e.target.value })
+        setHostName(e.target.value)
     }
 
     const onClear = () => {
-        setData({ ...data, hostName: '' })
+        setHostName('')
     }
 
     return <div className='url-panel-row'>
@@ -25,19 +34,23 @@ function UrlPanelRow({ rowData = { hostName: '' }, onDelete = noop, onSave = noo
             variant="outlined"
             size="small"
             fullWidth
-            value={data.hostName}
+            value={hostName}
             onChange={onChange}
-            showClear={!isEmpty(data.hostName)}
+            showClear={!isEmpty(hostName) && !isSame}
             onClear={onClear}
         />
         <div className='save-cancel-delete'>
             {isSame ? <>
-                <IconButton color="primary" aria-label="add to shopping cart" size="small"  >
-                    <DeleteIcon fontSize="small" onClick={onDelete} />
+                <IconButton color="primary" aria-label="add to shopping cart" size="small" onClick={onDelete}>
+                    <DeleteIcon fontSize="small" />
                 </IconButton>
             </> : <>
-                <IconButton color="primary" aria-label="add to shopping cart" size="small">
-                    <SaveIcon fontSize="small" onClick={onSave(data)} />
+                <IconButton color="primary" aria-label="add to shopping cart"
+                    size="small" onClick={() => {
+                        onSave({ isEnabled: rowData.isEnabled, hostName: hostName })
+                    }
+                    }>
+                    <SaveIcon fontSize="small" />
                 </IconButton>
             </>}
         </div>
