@@ -41,10 +41,12 @@
 
 .thirty-percent-width {
   width: 30%;
+  padding: 10px;
 }
 
 .hundred-percent-width {
   width: 70%;
+  padding: 10px;
 }
 
 .find-replace-panel {
@@ -60,18 +62,33 @@
   }
 }
 
-.url-panel {
+.url-panel-grid-base {
   display: grid;
   grid-template-columns: 50px 1fr 40px;
   column-gap: 15px;
   row-gap: 5px;
   width: 100%;
-  height: fit-content;
 
   .MuiOutlinedInput-root {
     height: 35px;
   }
 }
+
+.url-panel-header {
+  @extend .url-panel-grid-base;
+  padding: 10px;
+}
+
+.url-panel-rows {
+  height: 100%;
+  overflow: scroll;
+
+  .url-panel-row {
+    @extend .url-panel-grid-base;
+    padding: 10px;
+  }
+}
+
 
 .header-title {
   margin: auto;
@@ -85,10 +102,13 @@
   justify-content: flex-end;
 }
 
+.save-cancel-delete {
+  @extend .bulk-edit;
+}
+
 .main-screen {
   display: flex;
   flex-wrap: nowrap;
-  overflow: scroll;
   height: 100%;
   gap: 5px;
 }
