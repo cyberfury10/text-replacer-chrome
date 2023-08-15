@@ -26,7 +26,7 @@ function BulkTextEditor({ close, data, setData, ...extraProps }) {
         } else if (extraProps.type === FIND_AND_REPLACE_PANEL) {
             parsedData = findAndReplaceEncode(text)
         }
-        setData(parsedData)
+        setData(parsedData, true)
         close()
     }
 
