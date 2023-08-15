@@ -111,7 +111,7 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
     }, [data])
 
     if (isBulkEditMode) {
-        return <BulkTextEditor close={toggleBulkEditMode} {...extraProps} />
+        return <BulkTextEditor close={toggleBulkEditMode} data={data} setData={setDataProp} {...extraProps} />
     }
     return (
         <div className={`panel-container ${extraProps.widthClass}`}>
