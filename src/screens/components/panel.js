@@ -1,18 +1,17 @@
-import { Checkbox, Fab, IconButton, Tooltip, MenuItem, Menu } from '@mui/material';
+import { Checkbox, Fab, IconButton, Tooltip, MenuItem, Menu, Divider, TextField } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddIcon from '@mui/icons-material/Add';
 import { isEmpty, isEmptyArray } from '../util';
 import { CANNOT_BE_EMPTY_MSG, FIND_AND_REPLACE_PANEL, URL_PANEL } from '../constants';
 import { cloneDeep } from 'lodash';
-
-const menuItemStyle = {
-    fontSize: "14px",
-}
+import BulkTextEditor from './bulk-text-editor';
+import DropDown from './drop-down-menu';
 
 function Panel({ data, setData: setDataProp, Row, extraProps }) {
     const [enableAll, setEnableAll] = useState(false)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isBulkEditMode, setIsBulkEditMode] = useState(false)
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const setData = (newData, writeToStorage = true) => {
@@ -79,6 +78,10 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
         setIsMenuOpen(!isMenuOpen)
     }
 
+    const toggleBulkEditMode = (e) => {
+        setIsBulkEditMode(!isBulkEditMode)
+    }
+
     const onRowCheckChange = (index) => () => {
         const newData = cloneDeep(data)
         newData[index].isEnabled = !newData[index].isEnabled
@@ -107,6 +110,9 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
         })
     }, [data])
 
+    if (isBulkEditMode) {
+        return <BulkTextEditor close={toggleBulkEditMode} />
+    }
     return (
         <div className={`panel-container ${extraProps.widthClass}`}>
             <div className={extraProps.headerClass}>
@@ -120,6 +126,7 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
                     </IconButton>
                 </div>
             </div>
+            <Divider />
             <div className='panel-rows'>
                 {rows}
             </div>
@@ -128,40 +135,21 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
                     <AddIcon fontSize="small" />
                 </Fab>
             </div>
-            <Menu
+            <DropDown
                 anchorEl={anchorEl}
                 open={isMenuOpen}
                 onClick={toggleIsMenuOpen}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                PaperProps={{
-                    elevation: 0,
-                    sx: {
-                        overflow: 'visible',
-                        filter: 'drop-shadow(0px 2px 2px rgba(0,0,0,0.32))',
-                        fontSize: "12px",
-                        '&:before': {
-                            content: '""',
-                            display: 'block',
-                            position: 'absolute',
-                            top: 0,
-                            right: 14,
-                            width: 10,
-                            height: 10,
-                            bgcolor: 'background.paper',
-                            transform: 'translateY(-50%) rotate(45deg)',
-                            zIndex: 0,
-                        },
+                menuItems={[
+                    {
+                        label: "Bulk edit",
+                        onClick: toggleBulkEditMode
                     },
-                }}
-            >
-                <MenuItem style={menuItemStyle} onClick={toggleIsMenuOpen}>
-                    Bulk edit
-                </MenuItem>
-                <MenuItem style={menuItemStyle} onClick={deleteAll}>
-                    Delete all
-                </MenuItem>
-            </Menu>
+                    {
+                        label: "Delete all",
+                        onClick: deleteAll
+                    }
+                ]}
+            />
         </div>
     );
 }
