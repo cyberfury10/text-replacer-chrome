@@ -33,8 +33,8 @@ function DropDown({ menuItems, ...extraProps }) {
         }}
         {...extraProps}
     >
-        {menuItems.map(({ label, onClick }) => {
-            return <MenuItem style={menuItemStyle} onClick={onClick}>
+        {menuItems.map(({ label, onClick }, index) => {
+            return <MenuItem style={menuItemStyle} onClick={onClick} key={`dropdownKey-${index}`}>
                 {label}
             </MenuItem>
         })}

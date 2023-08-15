@@ -111,7 +111,7 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
     }, [data])
 
     if (isBulkEditMode) {
-        return <BulkTextEditor close={toggleBulkEditMode} />
+        return <BulkTextEditor close={toggleBulkEditMode} {...extraProps} />
     }
     return (
         <div className={`panel-container ${extraProps.widthClass}`}>
@@ -120,7 +120,7 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
                     <Checkbox size="small" checked={enableAll} onClick={onEnableAll} />
                 </Tooltip>
                 {extraProps.titleComponent}
-                <div className='bulk-edit'>
+                <div className='menu-button'>
                     <IconButton color="primary" aria-label="add to shopping cart" onClick={toggleIsMenuOpen}>
                         <MoreVertIcon fontSize="small" />
                     </IconButton>

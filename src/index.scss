@@ -65,6 +65,13 @@
   padding: 10px;
 }
 
+.bulk-editor-header {
+  @extend .panel-grid-base;
+  grid-template-columns: 2fr 40px;
+  row-gap: 5px;
+  padding: 10px;
+}
+
 .panel-rows {
   height: 100%;
   padding-top: 10px;
@@ -111,14 +118,14 @@
   cursor: pointer;
 }
 
-.bulk-edit {
+.menu-button {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
 .save-cancel-delete {
-  @extend .bulk-edit;
+  @extend .menu-button;
 }
 
 .main-screen {
@@ -131,5 +138,31 @@
 .custom-text-field {
   .MuiInputBase-root {
     font-size: 13px;
+    border-radius: 3px;
   }
+
+  .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #838b91;
+    border-width: 1px;
+  }
+
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #838b91;
+    border-width: 1px;
+  }
+}
+
+.custom-text-area {
+  font-family: "IBMPlexMono", "Cousine", monospace;
+  padding-left: 5px;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 20px;
+  border: none;
+  outline: 0px;
+  background-color: #f5f5f5;
+  overflow: scroll;
+  white-space: nowrap;
+  height: 100%;
+  width: 100%;
 }
