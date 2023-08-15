@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 
 * {
   box-sizing: border-box;
@@ -124,4 +125,10 @@
   flex-wrap: nowrap;
   height: 100%;
   gap: 5px;
+}
+
+.custom-text-field {
+  .MuiInputBase-root {
+    font-size: 13px;
+  }
 }

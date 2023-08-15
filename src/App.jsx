@@ -11,6 +11,24 @@ const blackTheme = createTheme({
       main: blueGrey[700]
     }
   },
+  typography: {
+    fontFamily: [
+      "Inter",
+      "system-ui",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      "Segoe UI",
+      "Roboto",
+      "Oxygen",
+      "Ubuntu",
+      "Cantarell",
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica",
+      "Arial",
+      "sans-serif"
+    ].join(','),
+  },
 })
 
 

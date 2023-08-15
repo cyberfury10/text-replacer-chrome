@@ -1,13 +1,19 @@
-import { Checkbox, Fab, IconButton, Tooltip } from '@mui/material';
+import { Checkbox, Fab, IconButton, Tooltip, MenuItem, Menu } from '@mui/material';
 import React, { useMemo, useState } from 'react';
-import EditIcon from '@mui/icons-material/Edit';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddIcon from '@mui/icons-material/Add';
 import { isEmpty, isEmptyArray } from '../util';
 import { CANNOT_BE_EMPTY_MSG, FIND_AND_REPLACE_PANEL, URL_PANEL } from '../constants';
 import { cloneDeep } from 'lodash';
 
+const menuItemStyle = {
+    fontSize: "14px",
+}
+
 function Panel({ data, setData: setDataProp, Row, extraProps }) {
     const [enableAll, setEnableAll] = useState(false)
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
     const setData = (newData, writeToStorage = true) => {
         setDataProp(newData, writeToStorage)
@@ -29,6 +35,10 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
         const newData = cloneDeep(data)
         newData.splice(index, 1)
         setData(newData)
+    }
+
+    const deleteAll = () => {
+        setData([])
     }
 
     const onAdd = (newData) => {
@@ -58,6 +68,15 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
             newData.push({ id: crypto.randomUUID(), ...extraProps.newObject })
         }
         setData(newData, false)
+    }
+
+    const toggleIsMenuOpen = (e) => {
+        if (!isMenuOpen === false) {
+            setAnchorEl(null);
+        } else {
+            setAnchorEl(e.currentTarget);
+        }
+        setIsMenuOpen(!isMenuOpen)
     }
 
     const onRowCheckChange = (index) => () => {
@@ -96,8 +115,8 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
                 </Tooltip>
                 {extraProps.titleComponent}
                 <div className='bulk-edit'>
-                    <IconButton color="primary" aria-label="add to shopping cart">
-                        <EditIcon fontSize="small" />
+                    <IconButton color="primary" aria-label="add to shopping cart" onClick={toggleIsMenuOpen}>
+                        <MoreVertIcon fontSize="small" />
                     </IconButton>
                 </div>
             </div>
@@ -109,6 +128,40 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
                     <AddIcon fontSize="small" />
                 </Fab>
             </div>
+            <Menu
+                anchorEl={anchorEl}
+                open={isMenuOpen}
+                onClick={toggleIsMenuOpen}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                PaperProps={{
+                    elevation: 0,
+                    sx: {
+                        overflow: 'visible',
+                        filter: 'drop-shadow(0px 2px 2px rgba(0,0,0,0.32))',
+                        fontSize: "12px",
+                        '&:before': {
+                            content: '""',
+                            display: 'block',
+                            position: 'absolute',
+                            top: 0,
+                            right: 14,
+                            width: 10,
+                            height: 10,
+                            bgcolor: 'background.paper',
+                            transform: 'translateY(-50%) rotate(45deg)',
+                            zIndex: 0,
+                        },
+                    },
+                }}
+            >
+                <MenuItem style={menuItemStyle} onClick={toggleIsMenuOpen}>
+                    Bulk edit
+                </MenuItem>
+                <MenuItem style={menuItemStyle} onClick={deleteAll}>
+                    Delete all
+                </MenuItem>
+            </Menu>
         </div>
     );
 }

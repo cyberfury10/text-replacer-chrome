@@ -21,6 +21,7 @@ function CustomTextField({ showClear, onClear, ...rest }) {
     } : {}
 
     return <TextField
+        className='custom-text-field'
         hiddenLabel
         variant="outlined"
         size="small"
