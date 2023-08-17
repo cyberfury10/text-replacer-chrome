@@ -1,3 +1,8 @@
+// runs find and replace on the first page load
+runReplaceTextInWebsites(document)
+
+// Whenever there is dynamic update to the page, MutationObserver
+// listens to those new nodes refer - https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
 let observer = new MutationObserver((mutations) => {
   for (let mutation of mutations) {
     for (let addedNode of mutation.addedNodes) {
@@ -9,6 +14,7 @@ let observer = new MutationObserver((mutations) => {
 })
 observer.observe(document, { childList: true, subtree: true })
 
+// Checks if host is present in saved list, if true then find and replace is performed
 function runReplaceTextInWebsites(addedNode) {
   getExtensionData("websites", (websites) => {
     for (const { hostName, isEnabled } of websites) {
