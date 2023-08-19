@@ -1,19 +1,21 @@
 {
-    "version": "0.1.0",
-    "manifest_version": 3,
-    "options_page": "index.html",
-    "name": "Text Replacer",
-    "description": "Text Replacer",
-    "permissions": ["storage"],
-    "host_permissions": ["https://*/*"],
-    "background": {
-      "service_worker": "./background.js"
-    },
-    "content_scripts": [
-      {
-        "matches": ["https://*/*"],
-        "js": ["./content.js"]
-      }
-    ]
-  }
-  
+  "version": "0.1.0",
+  "manifest_version": 3,
+  "options_page": "index.html",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "name": "Text Replacer",
+  "description": "Text Replacer",
+  "permissions": ["storage"],
+  "host_permissions": ["https://*/*"],
+  "background": {
+    "service_worker": "./background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["./content.js"]
+    }
+  ]
+}
