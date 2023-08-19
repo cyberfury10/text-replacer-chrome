@@ -112,6 +112,10 @@ module.exports = (env, argv) => {
             from: "./src/index.html",
             to: "./index.html",
           },
+          {
+            from: "./src/images",
+            to: "./images",
+          },
         ],
       }),
       new HtmlWebPackPlugin({
