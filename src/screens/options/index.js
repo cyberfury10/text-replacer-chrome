@@ -33,12 +33,17 @@ function OptionsScreen(props) {
     const urlPanelProps = {
         widthClass: 'thirty-percent-width',
         headerClass: 'url-panel-header',
-        titleComponent: <Tooltip title={<span>Add entries below to perform find & replace only on those websites</span>}>
+        titleComponent: <Tooltip title={<span>Add Websites below to perform find & replace only on those websites</span>}>
             <div className='header-title'>  Websites</div>
         </Tooltip>,
         noDataComponent: <div className='no-data'>
-            <p>No entries, Thats okay !!!</p>
-            <p>Find & Replace will be applied on all websites. Click (+) below to add websites so that replace is performed only on them</p>
+            <p>No entries present!</p>
+            <p>Find & Replace will be applied on all websites. </p>
+            <p>Click (+) to add websites, so that replace is performed only on them</p>
+            <p>(or)</p>
+            <p>Use "Bulk edit" under menu to add multi entries</p>
+            <br/>
+            <p>Note- Please enter the inputs using the correct cases, as the application is case-sensitive</p>
         </div>,
         newObject: {
             isEnabled: true,
@@ -56,8 +61,12 @@ function OptionsScreen(props) {
             <div className='header-title'> Replace </div>
         </>,
         noDataComponent: <div className='no-data'>
-            <p>No entries present, Go ahead !!!</p>
+            <p>No entries present !</p>
             <p>Click (+) below to add some text</p>
+            <p>(or)</p>
+            <p>Use "Bulk edit" under menu to add multi entries</p>
+            <br/>
+            <p>Note- Please enter the inputs using the correct cases, as the application is case-sensitive</p>
         </div>,
         newObject: {
             isEnabled: true,

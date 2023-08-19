@@ -1,5 +1,5 @@
 
-import { Divider, IconButton } from '@mui/material';
+import { Divider, IconButton, Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
@@ -29,17 +29,41 @@ function BulkTextEditor({ close, data, setData, ...extraProps }) {
         setData(parsedData, true)
         close()
     }
+    let instructions = <></>
+    if (extraProps.type === URL_PANEL) {
+        instructions = <ul>
+            <li>Each line is considered as an entry</li>
+            <li> "//" at the begining of the line denotes entry is disabled</li>
+
+        </ul>
+    } else if (extraProps.type === FIND_AND_REPLACE_PANEL) {
+        instructions = <ul>
+            <li>Find and replace are seperated by colon</li>
+            <li> "//" at the begining of the line denotes entry is disabled</li>
+            <li> Example- hi:hello</li>
+            <li>"hi" is maps to "find" and "hello" maps to "replace"</li>
+        </ul>
+    }
 
     return <div className={`panel-container ${extraProps.widthClass}`}>
         <div className='bulk-editor-header'>
-            <div className='header-title'>Bulk edit</div>
+            <div className='header-title'>
+                <Tooltip title={<section className='instructions'>
+                    Instructions:
+                    {instructions}
+                </section>}>Bulk edit</Tooltip>
+            </div>
             <div className='menu-button'>
-                <IconButton color="primary" onClick={save}>
-                    <SaveIcon fontSize="small" />
-                </IconButton>
-                <IconButton color="primary" onClick={close}>
-                    <CloseIcon fontSize="small" />
-                </IconButton>
+                <Tooltip title={"Save"}>
+                    <IconButton color="primary" onClick={save}>
+                        <SaveIcon fontSize="small" />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title={"Close"}>
+                    <IconButton color="primary" onClick={close}>
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                </Tooltip>
             </div>
         </div>
         <Divider />
