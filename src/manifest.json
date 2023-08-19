@@ -5,8 +5,13 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "name": "Text Replacer",
-  "description": "Text Replacer",
+  "icons": {
+    "16": "./images/replace-icon.png",
+    "48": "./images/replace-icon.png",
+    "128": "./images/replace-icon.png"
+  },
+  "name": "WebEdit Pro",
+  "description": "WebEdit Pro",
   "permissions": ["storage"],
   "host_permissions": ["https://*/*"],
   "background": {

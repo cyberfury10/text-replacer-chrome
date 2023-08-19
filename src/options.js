@@ -4,6 +4,7 @@ import "./app.scss";
 import { blueGrey } from '@mui/material/colors';
 import OptionsScreen from "./screens/options";
 import { ThemeProvider, createTheme } from "@mui/material";
+import replaceIcon from "./images/replace-icon.svg"
 
 const blackTheme = createTheme({
   palette: {
@@ -36,6 +37,12 @@ const Options = () => {
   return <>
     <ThemeProvider theme={blackTheme}>
       <div className="container">
+        <div className="banner-container-options">
+          <img className="logo" src={replaceIcon} alt="WebEdit Pro" />
+          <h2 className="banner">
+            WebEdit Pro
+          </h2>
+        </div>
         <OptionsScreen />
       </div>
     </ThemeProvider>

@@ -68,3 +68,11 @@ export function getExtensionData(key, callBack) {
     console.log('Probably running in dev mode')
   }
 }
+
+export function openOptionsPage() {
+  try {
+    chrome.runtime.openOptionsPage()
+  } catch (e) {
+    console.log('Probably running in dev mode')
+  }
+}
