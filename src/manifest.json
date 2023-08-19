@@ -12,7 +12,7 @@
     "128": "./images/replace-icon-128.png"
   },
   "name": "WebEdit Pro",
-  "description": "WebEdit Pro",
+  "description": "Replace text in any websites, tailoring the content to your preferences",
   "permissions": ["storage"],
   "host_permissions": ["https://*/*"],
   "background": {
