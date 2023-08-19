@@ -1,5 +1,5 @@
 
-import { Checkbox, IconButton } from '@mui/material';
+import { Checkbox, IconButton, Tooltip } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
@@ -95,7 +95,9 @@ function FindAndReplacePanelRow({
     }
 
     return <div className='find-replace-panel-row'>
-        <Checkbox size="small" checked={rowData.isEnabled} onChange={onCheckChange} />
+        <Tooltip title={rowData.isEnabled ? "Disable" : "Enable"} placement="right-start">
+            <Checkbox size="small" checked={rowData.isEnabled} onChange={onCheckChange} />
+        </Tooltip>
         <TextField
             {...data.findErrors}
             hiddenLabel

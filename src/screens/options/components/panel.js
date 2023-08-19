@@ -9,15 +9,14 @@ import BulkTextEditor from './bulk-text-editor';
 import DropDown from './drop-down-menu';
 
 function Panel({ data, setData: setDataProp, Row, extraProps }) {
-    const [enableAll, setEnableAll] = useState(false)
+    const [enableAll, setEnableAll] = useState(isAllEnabled(data))
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isBulkEditMode, setIsBulkEditMode] = useState(false)
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const setData = (newData, writeToStorage = true) => {
         setDataProp(newData, writeToStorage)
-        const isAllEnabled = !isEmptyArray(newData) && newData.every(({ isEnabled }) => isEnabled === true)
-        setEnableAll(isAllEnabled)
+        setEnableAll(isAllEnabled(newData))
     }
 
     const onSave = (index) => (rowData, isEnterPress = false) => {
@@ -116,7 +115,7 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
     return (
         <div className={`panel-container ${extraProps.widthClass}`}>
             <div className={extraProps.headerClass}>
-                <Tooltip title="Enable all" placement="right-start">
+                <Tooltip title={enableAll ? "Diable all" : "Enable all"} placement="right-start">
                     <Checkbox size="small" checked={enableAll} onClick={onEnableAll} />
                 </Tooltip>
                 {extraProps.titleComponent}
@@ -152,6 +151,10 @@ function Panel({ data, setData: setDataProp, Row, extraProps }) {
             />
         </div>
     );
+}
+
+function isAllEnabled(data) {
+    return !isEmptyArray(data) && data.every(({ isEnabled }) => isEnabled === true)
 }
 
 export default Panel;
