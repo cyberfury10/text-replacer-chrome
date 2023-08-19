@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "./app.scss";
 import { blueGrey } from '@mui/material/colors';
-import MainScreen from "./screens/main-screen";
+import OptionsScreen from "./screens/options";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 const blackTheme = createTheme({
@@ -36,7 +36,7 @@ const Options = () => {
   return <>
     <ThemeProvider theme={blackTheme}>
       <div className="container">
-        <MainScreen />
+        <OptionsScreen />
       </div>
     </ThemeProvider>
   </>

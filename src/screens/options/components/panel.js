@@ -2,7 +2,7 @@ import { Checkbox, Fab, IconButton, Tooltip, MenuItem, Menu, Divider, TextField 
 import React, { useMemo, useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddIcon from '@mui/icons-material/Add';
-import { isEmpty, isEmptyArray } from '../util';
+import { isEmpty, isEmptyArray } from '../../util';
 import { CANNOT_BE_EMPTY_MSG, FIND_AND_REPLACE_PANEL, URL_PANEL } from '../constants';
 import { cloneDeep } from 'lodash';
 import BulkTextEditor from './bulk-text-editor';

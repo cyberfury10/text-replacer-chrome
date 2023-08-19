@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import TextField from './custom-text-field';
-import { isEmpty, noop } from '../util';
+import { isEmpty, noop } from '../../util';
 import { CANNOT_BE_EMPTY_MSG } from '../constants';
 
 function UrlPanelRow({

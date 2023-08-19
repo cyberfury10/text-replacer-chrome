@@ -4,9 +4,9 @@ import Panel from './components/panel';
 import FindAndReplaceRow from './components/find-and-replace-panel-row'
 import UrlPanelRow from './components/url-panel-row'
 import { FIND_AND_REPLACE_PANEL, URL_PANEL } from './constants';
-import { saveExtensionData, getExtensionData } from "../content/content";
+import { saveExtensionData, getExtensionData } from "../../content/content";
 
-function MainScreen(props) {
+function OptionsScreen(props) {
     const [websites, setWebsites] = useState([])
     const [findAndReplace, setFindAndReplace] = useState([])
 
@@ -70,7 +70,7 @@ function MainScreen(props) {
 
     return (
         <>
-            <div className='main-screen'>
+            <div className='options-screen'>
                 <Panel data={websites} setData={updateWebsites} Row={UrlPanelRow} extraProps={urlPanelProps} />
                 <Divider className='divider' orientation="vertical" flexItem />
                 <Panel data={findAndReplace} setData={updateFindAndReplaceList} Row={FindAndReplaceRow} extraProps={findAndReplacePanelProps} />
@@ -80,4 +80,4 @@ function MainScreen(props) {
     );
 }
 
-export default MainScreen;
+export default OptionsScreen;
