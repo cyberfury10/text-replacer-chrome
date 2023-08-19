@@ -116,7 +116,7 @@
 .panel-rows {
   height: 100%;
   padding-top: 10px;
-  overflow: scroll;
+  overflow: auto;
 
   .MuiFormHelperText-root {
     font-size: 11px;
@@ -152,6 +152,11 @@
   }
 }
 
+.bulk-text-panel-rows {
+  @extend .panel-rows;
+  padding-top: 10px;
+  overflow: unset;
+}
 
 .header-title {
   margin: auto;
@@ -204,7 +209,7 @@
   border: none;
   outline: 0px;
   background-color: #f5f5f5;
-  overflow: scroll;
+  overflow: auto;
   white-space: nowrap;
   height: 100%;
   width: 100%;

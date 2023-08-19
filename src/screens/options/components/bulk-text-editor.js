@@ -67,7 +67,7 @@ function BulkTextEditor({ close, data, setData, ...extraProps }) {
             </div>
         </div>
         <Divider />
-        <div className='panel-rows'>
+        <div className='bulk-text-panel-rows'>
             <textarea
                 className='custom-text-area'
                 onChange={onChange}
