@@ -42,5 +42,9 @@ const Options = () => {
   </>
 }
 
-const root = ReactDOM.createRoot(document.getElementById("options"));
-root.render(<Options />);
+try {
+  const root = ReactDOM.createRoot(document.getElementById("options"));
+  root.render(<Options />);
+} catch (e) {
+  // This error is expected here options.html does not have a div with id="popup" 
+}
