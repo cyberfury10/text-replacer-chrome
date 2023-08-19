@@ -52,11 +52,19 @@ function recursivelyReplaceText(addedNode, find, replace) {
 }
 
 export function saveExtensionData(key, obj) {
-  chrome.storage.local.set({ [key]: obj })
+  try {
+    chrome.storage.local.set({ [key]: obj })
+  } catch (e) {
+    console.log('Probably running in dev mode')
+  }
 }
 
 export function getExtensionData(key, callBack) {
-  chrome.storage.local.get([key], function (data) {
-    callBack(data[key])
-  });
+  try {
+    chrome.storage.local.get([key], function (data) {
+      callBack(data[key])
+    });
+  } catch (e) {
+    console.log('Probably running in dev mode')
+  }
 }

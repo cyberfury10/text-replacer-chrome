@@ -18,7 +18,6 @@ function MainScreen(props) {
 
     const updateWebsites = (data, writeToStorage) => {
         setWebsites(data)
-        console.log(data)
         if (writeToStorage) {
             saveExtensionData("websites", data)
         }
@@ -26,7 +25,6 @@ function MainScreen(props) {
 
     const updateFindAndReplaceList = (data, writeToStorage) => {
         setFindAndReplace(data)
-        console.log(data)
         if (writeToStorage) {
             saveExtensionData("findAndReplace", data)
         }
