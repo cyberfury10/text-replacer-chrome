@@ -37,7 +37,7 @@ function OptionsScreen(props) {
             <div className='header-title'>  Websites</div>
         </Tooltip>,
         noDataComponent: <div className='no-data'>
-            <p>No entries present!</p>
+            <p>No entries present !</p>
             <p>Find & Replace will be applied on all websites. </p>
             <p>Click (+) to add websites, so that replace is performed only on them</p>
             <p>(or)</p>
