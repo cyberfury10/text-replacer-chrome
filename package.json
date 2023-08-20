@@ -1,5 +1,5 @@
 {
-  "name": "text-replacer",
+  "name": "web-edit-pro",
   "version": "1.0.0",
   "scripts": {
     "build": "webpack --mode production",
@@ -32,8 +32,13 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.13.10",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.3",
+    "@mui/material": "^5.14.4",
     "copy-webpack-plugin": "^11.0.0",
     "css-minimizer-webpack-plugin": "^5.0.1",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass-loader": "^13.3.2",

@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Mulish', sans-serif;
+}
+
+.popup-container {
+  text-align: center;
+  margin: auto;
+  width: 250px;
+  height: fit-content;
+  padding: 10px;
+  background-color: 1px lightgray solid;
+  border-radius: 5px;
+}
+
+.popup-container-transparent {
+  width: 250px;
+  height: fit-content;
+  background-color: transparent;
+}
+
+.container {
+
+  margin: auto;
+  width: 80vw;
+  height: 100vh;
+  padding: 10px;
+
+}
+
+.banner-container {
+  display: flex;
+  align-items: center;
+
+  .logo {
+    width: 25px;
+    height: 25px;
+  }
+
+  .banner {
+    padding: 10px;
+  }
+}
+
+.banner-container-popup {
+  @extend .banner-container;
+  justify-content: center;
+}
+
+.banner-container-options {
+  @extend .banner-container;
+  padding-left: 10px;
+  padding-bottom: 5px;
+}
+
+.divider {
+  height: 100%;
+}
+
+.panel-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+
+  .floating-action-bar {
+    height: 80px;
+    text-align: center;
+  }
+}
+
+.thirty-percent-width {
+  width: 30%;
+  padding: 10px;
+}
+
+.hundred-percent-width {
+  width: 70%;
+  padding: 10px;
+}
+
+.panel-grid-base {
+  display: grid;
+  width: 100%;
+
+  .MuiOutlinedInput-root {
+    height: 35px;
+  }
+}
+
+.find-replace-panel-header {
+  @extend .panel-grid-base;
+  grid-template-columns: 50px 1fr 1fr 40px;
+  row-gap: 5px;
+  padding: 10px;
+}
+
+.url-panel-header {
+  @extend .panel-grid-base;
+  grid-template-columns: 50px 1fr 40px;
+  row-gap: 5px;
+  padding: 10px;
+}
+
+.bulk-editor-header {
+  @extend .panel-grid-base;
+  grid-template-columns: 2fr 40px;
+  row-gap: 5px;
+  padding: 10px;
+}
+
+.panel-rows {
+  height: 100%;
+  padding-top: 10px;
+  overflow: auto;
+
+  .MuiFormHelperText-root {
+    font-size: 11px;
+  }
+
+  .no-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+    p {
+      text-align: center;
+      font-size: 12px;
+      color: rgb(185, 185, 185);
+    }
+
+  }
+
+  .url-panel-row {
+    @extend .panel-grid-base;
+    grid-template-columns: 50px 1fr 40px;
+    row-gap: 5px;
+    padding: 10px;
+  }
+
+  .find-replace-panel-row {
+    @extend .panel-grid-base;
+    grid-template-columns: 50px 1fr 1fr 40px;
+    gap: 10px;
+    padding: 10px;
+  }
+}
+
+.bulk-text-panel-rows {
+  @extend .panel-rows;
+  padding-top: 10px;
+  overflow: unset;
+}
+
+.header-title {
+  margin: auto;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.save-cancel-delete {
+  @extend .menu-button;
+}
+
+.options-screen {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 80%;
+  gap: 5px;
+  border: 1px lightgray solid;
+  border-radius: 10px;
+}
+
+.custom-text-field {
+  .MuiInputBase-root {
+    font-size: 13px;
+    border-radius: 3px;
+  }
+
+  .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #838b91;
+    border-width: 1px;
+  }
+
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #838b91;
+    border-width: 1px;
+  }
+}
+
+.custom-text-area {
+  font-family: "IBMPlexMono", "Cousine", monospace;
+  padding-left: 5px;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 20px;
+  border: none;
+  outline: 0px;
+  background-color: #f5f5f5;
+  overflow: auto;
+  white-space: nowrap;
+  height: 100%;
+  width: 100%;
+}
+
+.instructions {
+    font-size: 12px;
+    color: rgb(185, 185, 185);
+}

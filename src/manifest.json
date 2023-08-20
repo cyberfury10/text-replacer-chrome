@@ -1,19 +1,27 @@
 {
-    "version": "0.1.0",
-    "manifest_version": 3,
-    "options_page": "index.html",
-    "name": "Chrome extension starter app",
-    "description": "Chrome extension starter app",
-    "permissions": ["storage"],
-    "host_permissions": ["https://*/*"],
-    "background": {
-      "service_worker": "./background.js"
-    },
-    "content_scripts": [
-      {
-        "matches": ["https://*/*"],
-        "js": ["./content.js"]
-      }
-    ]
-  }
-  
+  "version": "0.1.0",
+  "manifest_version": 3,
+  "options_page": "options.html",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "./images/replace-icon-16.png",
+    "32": "./images/replace-icon-32.png",
+    "48": "./images/replace-icon-48.png",
+    "128": "./images/replace-icon-128.png"
+  },
+  "name": "WebEdit Pro",
+  "description": "Replace text in any websites, tailoring the content to your preferences",
+  "permissions": ["storage"],
+  "host_permissions": ["https://*/*"],
+  "background": {
+    "service_worker": "./background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["./content.js"]
+    }
+  ]
+}

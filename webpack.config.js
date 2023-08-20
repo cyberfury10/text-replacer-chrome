@@ -1,13 +1,11 @@
 const path = require("path")
 
 const CopyPlugin = require("copy-webpack-plugin")
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const TerserPlugin = require("terser-webpack-plugin")
 
 module.exports = (env, argv) => {
   const { mode } = argv
-  const isEnvDevelopment = mode === "development"
   const isEnvProduction = mode === "production"
   const config = {
     output: {
@@ -18,7 +16,8 @@ module.exports = (env, argv) => {
     entry: {
       content: "./src/content/content.js",
       background: "./src/background/background.js",
-      app: "./src/index.js",
+      popup: "./src/popup.js",
+      options: "./src/options.js",
     },
 
     resolve: {
@@ -54,8 +53,6 @@ module.exports = (env, argv) => {
             },
           },
         }),
-        // This is only used in production mode
-        new CssMinimizerPlugin(),
       ],
     },
 
@@ -111,11 +108,25 @@ module.exports = (env, argv) => {
             from: "./src/manifest.json",
             to: "./manifest.json",
           },
+          {
+            from: "./src/index.html",
+            to: "./index.html",
+          },
+          {
+            from: "./src/images",
+            to: "./images",
+          },
         ],
       }),
       new HtmlWebPackPlugin({
-        template: "./public/index.html",
-        publicPath: "/",
+        template:'./src/options.html',
+        filename: "options.html",
+        chunk:["options"]
+      }),
+      new HtmlWebPackPlugin({
+        template:'./src/popup.html',
+        filename: "popup.html",
+        chunk:["popup"]
       }),
     ],
   }
