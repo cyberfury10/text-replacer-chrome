@@ -14,14 +14,14 @@
   "name": "WebEdit Pro",
   "description": "Replace text in any websites, tailoring the content to your preferences",
   "permissions": ["storage"],
-  "host_permissions": ["https://*/*"],
   "background": {
     "service_worker": "./background.js"
   },
   "content_scripts": [
     {
       "matches": ["https://*/*"],
-      "js": ["./content.js"]
+      "js": ["./content.js"],
+      "run_at": "document_end"
     }
   ]
 }

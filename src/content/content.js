@@ -16,17 +16,21 @@ observer.observe(document, { childList: true, subtree: true })
 
 // Checks if host is present in saved list, if true then find and replace is performed
 function runReplaceTextInWebsites(addedNode) {
-  getExtensionData("websites", (websites) => {
-    for (const { hostName, isEnabled } of websites) {
-      if (window.location.host.includes(hostName) && isEnabled === true) {
-        findAndReplaceStrings(addedNode, hostName)
+  getExtensionData("websites", (websites = []) => {
+    if ( websites.length === 0) {
+      findAndReplaceStrings(addedNode)
+    } else {
+      for (const { hostName, isEnabled } of websites) {
+        if (window.location.host.includes(hostName) && isEnabled === true) {
+          findAndReplaceStrings(addedNode)
+        }
       }
     }
   })
 }
 
 function findAndReplaceStrings(addedNode) {
-  getExtensionData("findAndReplace", (findAndReplace) => {
+  getExtensionData("findAndReplace", (findAndReplace = []) => {
     for (const { find, replace, isEnabled } of findAndReplace) {
       if (isEnabled === true) {
         recursivelyReplaceText(addedNode, find, replace)
