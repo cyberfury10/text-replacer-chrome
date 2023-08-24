@@ -1,5 +1,7 @@
 // runs find and replace on the first page load
-runReplaceTextInWebsites(document)
+window.onload = () => {
+  runReplaceTextInWebsites(document)
+}
 
 // Whenever there is dynamic update to the page, MutationObserver
 // listens to those new nodes refer - https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
