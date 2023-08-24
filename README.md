@@ -1,6 +1,6 @@
 
 **What is WebEdit Pro?** 
-It is completely free and open source chrome extension
+It is completely free and open source chrome extension.
 
 **What does it do?**
 It finds and replaces the texts of the website
