@@ -24,24 +24,29 @@ It will be painful for the contributors of that repository to read things, imagi
 With mapping like follows,
 
 K43234 -> "John"
+
 K43235 -> "Bruce"
 ...
 
 WebEdit Pro can find & replace Alpha numeric username to desired name, with bulk edit feature in place, it is easy to do the mapping even for 1000 users at once
 
-**result would be:**
+**Result would be:**
+
 "John committed a new change"
+
 "Bruce raised a new PR"
 
 
-As mentioned above it is an open source following is repo
+As mentioned above it is an open source, following is repo
 Github link - https://github.com/cyberfury10/web-edit-pro
 
 **About the project & How to run:**
 This extension is created with react and custom webpack configuration
 
 Following command generates `dist` folder, 
+
 `npm run build`
+
 `npm run build:dev`
 
 In developer mode `dist` folder can be loaded in chrome
